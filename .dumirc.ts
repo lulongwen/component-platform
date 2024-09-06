@@ -147,17 +147,26 @@ const themeConfig = defineThemeConfig({
     antdTheme: {
       // 当为 true 时，全部都以分组形式展示
       // sidebarGroupModePath: [
-         // 匹配以 /config 开头的路由
-      //   '/e-charts'
+      // 匹配以 /config 开头的路由
+      //   '/config'
       // ]
     },
+    /**
+     * dumi 暂只支持两级侧边栏
+     * 左侧导航栏分组
+     */
+    // sidebarGroupModePath: [
+    // 匹配以 /config 开头的路由
+    //   '/config',
+    // ],
+    // sidebar: { '/nodejs': [] },
     resolve: {
-    atomDirs: [
-      { type: 'component', dir: 'src' }, // 默认值
-      // 追加一个组件资产的解析目录
-      // { type: 'basic-chart', dir: 'src/ECharts', subType: 'chart' },
-    ]
-  },
+      atomDirs: [
+        { type: 'component', dir: 'src' }, // 默认值
+        // 追加一个组件资产的解析目录
+        // { type: 'basic-chart', dir: 'src/ECharts', subType: 'chart' },
+      ]
+    },
     /**
      * nav: {
       'zh-CN': [{ title: '指南', link: '/guide/introduce' }],
@@ -166,28 +175,21 @@ const themeConfig = defineThemeConfig({
      */
     nav: [
       {
-        title: '研发',
+        title: 'DevOps',
         link: '/devops'
       },
       {
-        title: 'Linux',
-        link: '/linux'
+        title: 'Datav 可视化',
+        link: '/datav'
       },
       {
-        title: 'Nodejs 全栈',
-        link: '/nodejs'
+        title: 'B端设计系统',
+        link: '/tob'
+        // link: '/components'
       },
       {
-        title: 'B端组件',
-        link: '/components'
-      },
-      {
-        title: '微信小程序',
-        link: '/wechat'
-      },
-      {
-        title: '前端工具库',
-        link: '/utils'
+        title: '企业数字化转型',
+        link: '/biz'
       },
     ],
     actions: [
@@ -226,12 +228,6 @@ const themeConfig = defineThemeConfig({
     loading: {
       skeleton: ['/guide', '/config', '/demo'],
     },
-    // 左侧导航栏分组
-    // sidebarGroupModePath: [
-    //   // 匹配以 /config 开头的路由
-    //   '/config',
-    // ],
-    // sidebar: { '/nodejs': [] },
     socialLinks: {
       github: 'https://github.com/lulongwen',
       // twitter: 'https://xxxx',

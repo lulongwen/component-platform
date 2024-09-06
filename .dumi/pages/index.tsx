@@ -3,9 +3,9 @@ import { HomeBaseLayout } from 'dumi-theme-antd'
 
 const HomePage = () => {
   return (
-    <section>
+    <>
       <HomeBaseLayout />
-    </section>
+    </>
   )
 }
 
