@@ -15,6 +15,20 @@
 
 <img src="./dumi-antd.png" alt="dumi-antd" style="zoom:50%;" />
 
+基于 dumi部署了一套系统
+
+1. 设计
+   1. 样式库
+   2. UI动效库
+2. 研发
+   1. 组件库
+   2. 模板库
+3. 资源
+   1. 图标库
+   2. 原型库
+4. 物料广场
+   1. 示例库
+
 
 
 
@@ -50,7 +64,7 @@ npm run dev
 
 
 
-## dumi 目录结构
+### dumi 目录结构
 
 ```tree
 ├── .dumi
@@ -70,18 +84,30 @@ npm run dev
 
 静态站点（`Static Site` 选项），忽略上面的 `src` 目录，关注 docs目录
 
+【docs 文档路由】通常放在 docs 目录下，会嵌套层级
+
+【src 资产路由】通常放在 src 下，不会嵌套层级、且默认归类在某一前缀
+
 * 文档路由 docs
   * 自动过滤掉以 `.` 和 `_` 开头的文件及文件夹，仅识别 `.md` 后缀的文件
 * 组件资产路由 src
   * dumi 默认会将 `src` 下的文档都归类到 `/components`
-* .dumi/pages 自定义 React组件页面，识别规则与文档路由一致
-  * dumi 会自动将文件路径中的驼峰命令（CamelCase）转换为中划线命名（kebab-case)
 
 
+
+dumi 层级嵌套 https://git.homegu.com/umijs/dumi/issues/748
 
 
 
 ### .dumi
+
+约定 `.dumi/tmp*` 为框架的临时文件，由 dumi 在编译过程中自动生成，**请勿直接修改或在代码中引入它们**
+
+这些文件由 dumi 在编译过程中自动生成，**请勿直接修改或在代码中引入它们**
+
+.dumi/pages 自定义 React组件页面，识别规则与文档路由一致
+
+* dumi 会自动将文件路径中的驼峰命令（CamelCase）转换为中划线命名（kebab-case)
 
 `.dumi/global.less` 新增组件全局样式
 
@@ -96,8 +122,6 @@ npm run dev
 `.dumi/pages/404.(js|jsx|ts|tsx)` 为自定义 404 页面
 
 `.dumi/favicon.(ico|gif|png|jpg|jpeg|svg|avif|webp)` 为站点 favicon 图标，当存在任一后缀文件时，dumi 将会自动在 HTML 中插入对应的 `link` 标签以应用 favicon
-
-`.dumi/tmp*` 框架的临时文件，由 dumi 在编译过程中自动生成，**请勿直接修改或在代码中引入它们**
 
 `.dumirc.ts` 中的 `styles` 配置项加载了组件库样式表
 

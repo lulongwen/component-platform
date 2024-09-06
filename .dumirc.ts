@@ -107,7 +107,6 @@ const footerLinks = [
 ];
 
 const themeConfig = defineThemeConfig({
-    mode: 'site',
     name,
     title: {
       'zh-CN': name,
@@ -152,7 +151,13 @@ const themeConfig = defineThemeConfig({
       //   '/e-charts'
       // ]
     },
-
+    resolve: {
+    atomDirs: [
+      { type: 'component', dir: 'src' }, // 默认值
+      // 追加一个组件资产的解析目录
+      // { type: 'basic-chart', dir: 'src/ECharts', subType: 'chart' },
+    ]
+  },
     /**
      * nav: {
       'zh-CN': [{ title: '指南', link: '/guide/introduce' }],
@@ -240,11 +245,11 @@ const themeConfig = defineThemeConfig({
 });
 
 export default defineConfig({
-  // base: '/文档起始路由',
+  // base: '/', // 文档起始路由
   publicPath: `/${outputPath}/`,
+  outputPath,
   // history: { type: 'hash'},
   exportStatic: {}, // 将所有路由输出为 HTML 目录结构，以免刷新页面时 404
-  outputPath,
   themeConfig,
 
   analytics: {
