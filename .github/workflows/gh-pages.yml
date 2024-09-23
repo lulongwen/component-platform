@@ -41,7 +41,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           # Settings > Secret 建立的 ACCESS_TOKEN
-          token: ${{ secrets.ACCESS_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           # 文档目录，如果是 react 模板需要修改为 docs-dist
           publish_dir: ./component-platform
           # branch: main # 打包的内容放到 main 分支下
