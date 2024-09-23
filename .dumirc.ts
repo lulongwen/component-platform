@@ -250,10 +250,10 @@ const themeConfig = defineThemeConfig({
 export default defineConfig({
   // base: '/文档起始路由/' 文档项目非根目录部署, base 和 publicPath 配置项相同
   base: publicPath,
-  outputPath: repo,
+  outputPath: 'docs-dist',
   publicPath, // publicPath: '/静态资源起始路径/',
   cssPublicPath: publicPath,
-  // history: { type: 'hash'},
+  history: { type: 'hash'},
   exportStatic: {}, // 将所有路由输出为 HTML 目录结构，以免刷新页面时 404
   themeConfig,
   mfsu: false,

@@ -24,7 +24,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3 # 推荐使用最新版本
         with:
-          node-version: 20.x
+          node-version: 18.x
 
       # 安装依赖
       - name: Install dependencies
@@ -43,6 +43,6 @@ jobs:
           # Settings > Secret 建立的 ACCESS_TOKEN
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # 文档目录，如果是 react 模板需要修改为 docs-dist
-          publish_dir: ./component-platform
+          publish_dir: ./docs-dist
           # branch: main # 打包的内容放到 main 分支下
           # folder: dist # 你打包后存放的文件
