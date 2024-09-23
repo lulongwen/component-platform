@@ -1,5 +1,5 @@
 # 项目名
-name: react-component-platform
+name: component-platform
 
 # 只有在main分支发生push事件时触发
 on:
@@ -15,7 +15,7 @@ jobs:
     steps:
       # 拉代码
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
         with:
           # 如果配置 themeConfig.lastUpdated 为 false，则不需要添加该参数以加快检出速度
           fetch-depth: 0
