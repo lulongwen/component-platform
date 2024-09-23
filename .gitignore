@@ -34,6 +34,7 @@ docs-dist/
 build/
 coverage/
 docs/
+component-platform/
 
 # misc 操作系统或编辑器文件夹
 .hg
@@ -43,6 +44,7 @@ docs/
 .vscode
 .cache
 .DS_Store
+.zed
 ._*
 .project
 .settings
