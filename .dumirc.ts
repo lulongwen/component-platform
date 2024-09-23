@@ -258,7 +258,7 @@ export default defineConfig({
   themeConfig,
   mfsu: false,
   ssr: false,
-  hash: false, // 文件 hash
+  hash: false, // build 之后的产物包含 hash 后缀
   analytics: {
     // 百度统计的 key
     baidu: 'c1279a8c55872aac7aa5d4bd6d02af64',

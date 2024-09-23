@@ -28,7 +28,8 @@ jobs:
 
       # 安装依赖
       - name: Install dependencies
-        run: npm install
+        # 告诉 npm 忽略 peer 依赖的版本冲突
+        run: npm install --legacy-peer-deps
 
       # 打包代码
       - name: Build with dumi
