@@ -4,6 +4,7 @@
  * Description:
  * @Doc 全局调色盘 https://echarts.apache.org/handbook/zh/concepts/style/#%E8%B0%83%E8%89%B2%E7%9B%98
  */
+
 export const colors = [
   '#188ffe',
   '#2fc25b',

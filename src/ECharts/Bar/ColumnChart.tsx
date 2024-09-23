@@ -4,16 +4,16 @@
  * Description:
  */
 import React, { useMemo } from 'react';
-import { TooltipComponent, LegendComponent } from 'echarts/components';
 // 系列类型的定义后缀都为 SeriesOption
 import { BarChart, type BarSeriesOption } from 'echarts/charts';
-import ECharts from '../ECharts';
+import { merge } from 'lodash-es';
+import ECharts, { type RendererType, type ThemeType } from '../ECharts';
 import { baseOption } from '../utils';
 
-function getSeries(dataSource: any[]): BarSeriesOption[] {
-  return dataSource.map((item) => {
+function getSeries(series: BarSeriesOption[], shallow = false): BarSeriesOption[] {
+  return series.map((item) => {
     const { name, data = [], type = 'bar', ...rest } = item;
-    return {
+    const series = {
       data,
       name,
       type,
@@ -30,35 +30,36 @@ function getSeries(dataSource: any[]): BarSeriesOption[] {
       emphasis: {
         focus: 'series'
       },
-      ...rest
     }
+
+    return shallow
+      ? Object.assign({}, series, rest)
+      : merge(series, rest)
   });
 }
 
 export type ColumnChartProps = {
-  dataSource: any[],
-  xAxisData: any[],
+  series: BarSeriesOption[],
+  xAxisData: string[],
   components?: any[],
-  loading?: boolean,
-  color?: string[] 
+  shallow?: boolean,
+  color?: string[];
+  theme?: ThemeType;
+  renderer?: RendererType;
 };
 
 const ColumnChart: React.FC<ColumnChartProps> = (props) => {
   const {
-    dataSource,
-    xAxisData,
+    shallow,
+    renderer,
     components = [],
+    series,
     ...rest
   } = props
 
-  const options: BarSeriesOption = useMemo(() => {
-    const { length } = dataSource;
-    const series = Array.isArray(dataSource) ?  getSeries(dataSource) : [];
-
-    return baseOption({
-      length,
-      xAxisData,
-      series,
+  const option = useMemo(() => {
+    const _option = Object.assign({
+      series: Array.isArray(series) ?  getSeries(series, shallow) : [],
       legend: { itemHeight: 12 },
       xAxis: { boundaryGap: true },
       tooltip: {
@@ -66,18 +67,18 @@ const ColumnChart: React.FC<ColumnChartProps> = (props) => {
           type: 'shadow'
         }
       },
-      ...rest,
-    });
-  }, [dataSource, xAxisData, rest])
+    }, rest)
+
+    return baseOption(_option);
+  }, [series, rest, shallow])
 
   return (
     <ECharts
-      options={options}
+      renderer={renderer}
+      option={option}
       components={[
         ...components,
-        BarChart,
-        TooltipComponent,
-        LegendComponent,
+        BarChart
       ]}
     />
   );

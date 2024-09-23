@@ -1,5 +1,4 @@
 ---
-
 title: ECharts 可视化图表
 description: Echarts 图表组件
 keywords: [Echarts 图表组件, Echarts]
@@ -13,21 +12,61 @@ date: 2023-04-02 15:01:39
 
 ---
 
-
-
 基于 echarts5.4图表组件
 
 默认导出 ECharts.tsx，如果没有封装的图表，直接传入 options就可以渲染图表
 
-```jsx | pure
-<Echarts {...options} />
-```
+`<Echarts {...options} />`
 
 
 
+## Chart
+
+ProgressChart 进度条
+
+CircleProgressChart 圆环进度
+
+TinyAreaChart 迷你面积图
+
+TinyLineChart 迷你折线图
 
 
-[ECharts 图表](/echarts)
+
+### 关系图表
+
+树图 TreeChart
+
+矩形树图 TreeMapChart
+
+关系图 GraphChart
+
+聚合树图 GraphTreeChart
+
+聚合气泡图 AssembleBubbleChart 
+
+词云图 WordCloudChart 
+
+玉玦图 JadeJueChart 
+
+流程图 FlowChart
+
+河流图 RiverChart
+
+蜂窝图 HoneycombChart 
+
+时间轴 TimelineChart 
+
+组织关系图 OrganizationChart
+
+雪花图 SnowFlakeChart
+
+里程碑图 MilestoneChart
+
+
+
+fast-deep-equal
+
+size-sensor
 
 
 
@@ -35,384 +74,22 @@ date: 2023-04-02 15:01:39
 
 ### echarts资源
 
-* echarts术语概念 https://echarts.apache.org/zh/cheat-sheet.html
+echarts术语概念 https://echarts.apache.org/zh/cheat-sheet.html
 
 
 
 
 
-## Echarts.tsx 说明
+## Echarts API 说明
 
 没有新概念，直接传入 options参数即可渲染图表
 
-* dataSource 数据源
 
-* xAxisData X轴的刻度
 
+### EChart Props
 
-
-
-
-## LineChart 折线图
-
-
-
-```tsx
-import React from 'react';
-import { LineChart } from 'sop-antd'
-
-const dataSource = [
-  {
-    name: '一周趋势',
-    data: [820, 932, 901, 934, 1290, 1330, 1320],
-  },
-  {
-    name: 'Direct',
-    data: [320, 332, 301, 334, 390, 330, 320],
-  },
-  {
-    name: 'Search Engine',
-    data: [620, 732, 801, 934, 990, 930, 1000],
-  }
-]
-
-const xAxisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-
-export default () => {
-  return (
-    <LineChart
-      dataSource={dataSource}
-      xAxisData={xAxisData}
-    />
-  )
-};
-```
-
-
-
-### AreaChart 面积图
-
-dataSource.item 添加 areaStyle: {}
-
-```tsx
-import React from 'react';
-import { LineChart } from 'sop-antd'
-
-const dataSource = [
-  {
-    name: '一周趋势',
-    data: [820, 932, 901, 934, 1290, 1330, 1320],
-    areaStyle: {},
-  },
-  {
-    name: 'Direct',
-    data: [320, 332, 301, 334, 390, 330, 320],
-    areaStyle: {},
-  },
-  {
-    name: 'Search Engine',
-    data: [620, 732, 801, 934, 990, 930, 1000],
-    areaStyle: {},
-  }
-]
-
-const xAxisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-
-export default () => {
-  return (
-    <LineChart
-      dataSource={dataSource}
-      xAxisData={xAxisData}
-    />
-  )
-};
-```
-
-
-
-
-
-## ColumnChart 柱状图
-
-柱状图 X轴左右两边溢出的问题，解决，设置 xAxis`boundaryGap`属性值为 true
-
-boundaryGap: false是贴边显示
-
-当 echarts柱状图 `X`轴值为`category`（类目轴）时，`boundaryGap`值需要设为`true`，可解决x轴左边溢出问题
-
-当echarts柱状图中 `X`轴值为`value`（数值轴）时，计算出`x`轴`data`的`min`和`max`值，然后设置`xAxis`的`min`和`max`属性，
-
-最后设置`yAxis`的 `onZero`属性为`false`，解决X轴两边溢出问题
-
-```js | pure
-const options = {
-  xAxis: {
-    type: 'value',
-    boundaryGap: true,
-  }
-}
-```
-
-
-
-
-
-```tsx
-import React from 'react';
-import { ColumnChart } from 'sop-antd'
-
-const dataSource = [
-  {
-    name: '一周趋势',
-    data: [820, 932, 901, 934, 1290, 1330, 1320],
-    type: 'bar',
-  },
-  {
-    name: 'Direct',
-    data: [320, 332, 301, 334, 390, 330, 320],
-    type: 'bar',
-  },
-  {
-    name: 'Search Engine',
-    data: [620, 732, 801, 934, 990, 930, 1000],
-    type: 'bar',
-  }
-]
-
-const xAxisData = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-
-export default () => {
-  return (
-    <ColumnChart
-      dataSource={dataSource}
-      xAxisData={xAxisData}
-    />
-  )
-};
-```
-
-
-
-
-
-### 折柱混合图
-
-ColumnLineChart
-
-```tsx
-import React from 'react';
-import { ColumnChart } from 'sop-antd'
-
-const dataSource = [
-  {
-    name: '一周趋势',
-    data: [820, 932, 901, 934, 1290, 1330, 1320],
-    smooth: true,
-    areaStyle: { opacity: 0.13 },
-    type: 'line',
-    symbol: 'none',
-    lineStyle: {
-      width: 1.8,
-      type: 'solid',
-    },
-  },
-  {
-    name: '一周趋势',
-    data: [820, 932, 901, 934, 1290, 1330, 1320],
-    type: 'bar',
-  },
-  {
-    name: 'Direct',
-    data: [320, 332, 301, 334, 390, 330, 320],
-    type: 'bar',
-  },
-  {
-    name: 'Search Engine',
-    data: [620, 732, 801, 934, 990, 930, 1000],
-    type: 'bar',
-  }
-]
-
-export default () => {
-  return (
-    <ColumnChart
-      dataSource={dataSource}
-      xAxisData={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-    />
-  )
-};
-```
-
-
-
-
-
-### yAxis 多个Y轴
-
-多Y轴刻度对齐，yAxis下的每项都要设置，min，max和 interval值，例如
-
-* min: 0,
-* max: 100,
-* interval: 5,
-
-```tsx
-import React from 'react';
-import { ColumnChart } from 'sop-antd'
-
-const dataSource = [
-  {
-    name: 'Email',
-    data: [120, 132, 101, 134, 90, 230, 210],
-    smooth: true,
-    areaChart: true,
-    areaStyle: {},
-  },
-  {
-    name: 'Union Ads',
-    data: [220, 182, 191, 234, 290, 330, 310],
-    smooth: true,
-    areaChart: true,
-    areaStyle: {},
-  },
-  {
-    name: 'Direct',
-    data: [320, 332, 301, 334, 390, 330, 320],
-    smooth: true,
-    areaChart: true,
-    areaStyle: {},
-  },
-  {
-    name: 'ENGINE',
-    data: [620, 732, 801, 934, 990, 930, 1000],
-    smooth: true,
-    areaChart: true,
-    areaStyle: {},
-  },
-  {
-    name: '一周趋势',
-    data: [20, 32, 58, 66, 79, 89, 97],
-    smooth: true,
-    // areaStyle: { opacity: 0.13 },
-    type: 'line',
-    symbol: 'none',
-    lineStyle: {
-      width: 1.8,
-      type: 'solid',
-    },
-    yAxisIndex: 1,
-    tooltip: {
-      valueFormatter: (value) => `${value}%`
-    },
-  },
-];
-
-export default () => {
-  return (
-    <ColumnChart
-      dataSource={dataSource}
-      xAxisData={['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']}
-      yAxis={[
-            {
-              name: 'ENGINE',
-            },
-            {
-              type: 'value',
-              name: '一周趋势',
-              position: 'right',
-              axisLine: {
-                show: false,
-                onZero: false, // Y轴是否在 X轴零刻度上
-              },
-              axisTick: { show: false },
-              // 改为虚线网格
-              splitLine: {
-                show: false,
-                lineStyle: {
-                  color: 'rgba(193,197,202,0.25)',
-                  type: 'dashed',
-                },
-              },
-              axisLabel: {
-                color: '#9da5b2',
-                fontSize: 11,
-                formatter: '{value} %',
-              },
-            },
-          ]}
-    />
-  )
-};
-```
-
-
-
-
-
-
-
-## Pie 饼图
-
-实心饼图
-
-```tsx
-import React from 'react';
-import { PieChart } from 'sop-antd'
-
-const dataSource = [
-  { value: 80, name: '表单 70%' },
-  { value: 15, name: '数据分析 15%' },
-  { value: 15, name: '列表 10%' },
-  { value: 5, name: '工作台 5%' }
-]
-
-export default () => {
-  return (
-    <PieChart
-      dataSource={dataSource}
-      series={[{name: '中后台系统'}]}
-    />
-  )
-};
-```
-
-
-
-
-
-### 圆环饼图
-
-
-
-```tsx
-import React from 'react';
-import { PieChart } from 'sop-antd'
-
-const pieData = [
-  { value: 1048, name: 'Search Engine' },
-  { value: 735, name: 'Direct' },
-  { value: 580, name: 'Email' },
-  { value: 484, name: 'Union Ads' },
-  { value: 300, name: 'Video Ads' }
-]
-
-export default () => {
-  return (
-    <PieChart
-      dataSource={pieData}
-      series={[{ name: '中后台系统', radius: ['35%', '70%'] }]}
-    />
-  )
-};
-```
-
-
-
-## API
-
-ECharts 属性说明
-
-* dataSource 必填项
-* xAxisData 必填项
+* dataSource 必填项，对标 series 数据源
+* xAxisData 必填项，对标 xAxis.data X轴的刻度
 * <mark>如果不传 dataSource 和 xAxisData，一定要传入 `series.data` 和 `xAxis.data`</mark>
 * 其他参数和 setOption参与一样，https://echarts.apache.org/zh/option.html#series
 
@@ -425,6 +102,215 @@ ECharts 属性说明
 | dataSource               | 数据源，必填项 ✅  | Array | []     |      |
 | xAxisData                | X轴刻度，必填项 ✅ | Array | []     |      |
 | 其他属性和 setOption一样 |                   |       |        |      |
+
+ - **`option`** (required, object)
+
+the echarts option config, can see [https://echarts.apache.org/option.html#title](https://echarts.apache.org/option.html#title).
+
+ - **`notMerge`** (optional, object)
+
+when `setOption`, not merge the data, default is `false`. See [https://echarts.apache.org/api.html#echartsInstance.setOption](https://echarts.apache.org/api.html#echartsInstance.setOption).
+
+ - **`lazyUpdate`** (optional, object)
+
+when `setOption`, lazy update the data, default is `false`. See [https://echarts.apache.org/api.html#echartsInstance.setOption](https://echarts.apache.org/api.html#echartsInstance.setOption).
+
+ - **`style`** (optional, object)
+
+the `style` of echarts div. `object`, default is {height: '300px'}.
+
+ - **`className`** (optional, string)
+
+the `class` of echarts div. you can setting the css style of charts by class name.
+
+ - **`theme`** (optional, string)
+
+the `theme` of echarts. `string`, should `registerTheme` before use it (theme object format: [https://github.com/ecomfe/echarts/blob/master/theme/dark.js](https://github.com/ecomfe/echarts/blob/master/theme/dark.js)). e.g.
+
+```tsx | pure
+import * as echarts from 'echarts';
+
+echarts.registerTheme('my_theme', {
+  backgroundColor: '#f4cccc'
+});
+```
+
+* **`locale`** 国际化配置
+
+多语言
+
+```tsx | pure
+import "echarts/i18n/langFR";
+```
+
+
+
+ - **`onMounted`** (optional, function)
+
+when the chart is ready, will callback the function with the `echarts object` as it's paramter.
+
+ - **`onEvents`** (optional, array(string=>function) )
+
+binding the echarts event, will callback with the `echarts event object`, and `the echart object` as it's paramters. e.g:
+
+```tsx | pure
+const onEvents = {
+  'click': this.onChartClick,
+  'legendselectchanged': this.onChartLegendselectchanged
+}
+
+<ReactECharts
+  option={getOption()}
+  onEvents={onEvents}
+/>
+```
+
+echarts-for-react-master全部引入，不推荐
+
+
+
+
+
+### echarts/renderers
+
+ 渲染方式，默认 canvas
+
+```tsx | pure
+import {
+  CanvasRenderer,
+  SVGRenderer,
+} from 'echarts/renderers'
+```
+
+
+
+
+
+### echarts/components
+
+echarts 组件
+
+```tsx | pure
+import {
+  GridSimpleComponent,
+  GridComponent,
+  PolarComponent,
+  RadarComponent,
+  GeoComponent,
+  SingleAxisComponent,
+  ParallelComponent,
+  CalendarComponent,
+  GraphicComponent,
+  ToolboxComponent,
+  TooltipComponent,
+  AxisPointerComponent,
+  BrushComponent,
+  TitleComponent,
+  TimelineComponent,
+  MarkPointComponent,
+  MarkLineComponent,
+  MarkAreaComponent,
+  LegendComponent,
+  LegendScrollComponent,
+  LegendPlainComponent,
+  DataZoomComponent,
+  DataZoomInsideComponent,
+  DataZoomSliderComponent,
+  VisualMapComponent,
+  VisualMapContinuousComponent,
+  VisualMapPiecewiseComponent,
+  AriaComponent,
+  TransformComponent,
+  DatasetComponent,
+} from 'echarts/components'
+```
+
+
+
+
+
+### echarts/charts
+
+所有图表
+
+```tsx | pure
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ScatterChart,
+  RadarChart,
+  MapChart,
+  TreeChart,
+  TreemapChart,
+  GraphChart,
+  GaugeChart,
+  FunnelChart,
+  ParallelChart,
+  SankeyChart,
+  BoxplotChart,
+  CandlestickChart,
+  EffectScatterChart,
+  LinesChart,
+  HeatmapChart,
+  PictorialBarChart,
+  ThemeRiverChart,
+  SunburstChart,
+  CustomChart,
+} from 'echarts/charts'
+```
+
+
+
+
+
+
+
+### Echarts封装细节
+
+修改以下属性的时候，需要 dispose销毁 echarts，然后再新建
+
+1. 切换 theme 的时候
+2. 修改 options 的时候
+3. 修改 onEvents 的时候，取消所有之前绑定的事件 issue #151
+
+```tsx | pure
+function onMounted(echarts) {
+  console.log('echarts is ready', echarts);
+}
+
+function onChartClick(param, echarts) {
+  console.log(param, echarts);
+  setCount(count + 1);
+}
+
+function onChartLegendselectchanged(param, echarts) {
+  console.log(param, echarts);
+}
+
+<ReactECharts
+  option={getOption()}
+  notMerge={true}
+  lazyUpdate={true}
+  theme={'dark'}
+  onCreated={onCreated}
+  onMounted={onMounted}
+  onEvents={{
+  	'click': onChartClick,
+  	'legendselectchanged': onChartLegendselectchanged
+ }}
+/>
+```
+
+
+
+
+
+## echarts-gl
+
+```bash
+pnpm add echarts-gl
+```
 
 
 

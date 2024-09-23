@@ -7,15 +7,14 @@
 import React, { useEffect, useState } from 'react'
 import { VisualMapComponent } from 'echarts/components'
 import { HeatmapChart } from 'echarts/charts'
-// import { getRangeArray } from '@/utils'
 import ECharts from '../../ECharts'
 import { getHeatmapSource, generatePieces } from './generatePieces';
 import readHeatMap from './readHeatMap.json';
 
+const xData = ['10:00', '10:01', '10:02', '10:03', '10:04', '10:05', '10:06']
 // const xData = getRangeArray('2021-11-06T02:42:16.708Z', '2021-11-06T03:42:16.708Z', {
 //   formatter: 'HH:mm', unit: 'm'
 // })
-const xData = ['10:00', '10:01', '10:02']
 
 interface IProps {
   dataSource: [];
@@ -32,18 +31,18 @@ const StackHeatmap: React.FC<IProps> = (props) => {
     height,
     unit = 'ms',
   } = props;
-  const [options, setOptions] = useState({});
+  const [option, setOptions] = useState({});
 
   useEffect(update, [xAxisData, dataSource]);
 
   function update() {
     // 转换数据
     const { nodes, buckets } = getHeatmapSource(readHeatMap);
-    const _options = getOptions({ nodes, buckets });
-    setOptions(_options);
+    const _option = getOptions({ nodes, buckets });
+    setOptions(_option);
   }
 
-  // 生成热力图 options
+  // 生成热力图 option
   function getOptions({ nodes, buckets }: any) {
     const source = nodes.map((d: number[]) => d[2]);
     const maxItem = Math.max(...source);
@@ -116,7 +115,7 @@ const StackHeatmap: React.FC<IProps> = (props) => {
   return (
     <ECharts
       height={height}
-      options={options}
+      option={option}
       components={[
         HeatmapChart,
         VisualMapComponent

@@ -6,4 +6,4 @@
  */
 
 export { default as ColumnChart } from './ColumnChart'
-// export { default as ColumnLineChart } from './ColumnLineChart'
+export { default as BarChart } from './BarChart'

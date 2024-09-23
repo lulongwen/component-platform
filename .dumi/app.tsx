@@ -9,7 +9,6 @@ import { Navigate } from 'dumi';
 
 const redirectData = [
   { from: '/components', to: '/components/e-charts' },
-  { from: '/echarts', to: '/echarts/bar' },
   { from: '/topology', to: '/reactflow' }
 ]
 

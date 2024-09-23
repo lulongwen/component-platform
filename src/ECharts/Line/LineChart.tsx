@@ -6,17 +6,16 @@
 import React, { useMemo } from 'react';
 import { LegendComponent } from 'echarts/components';
 import { LineChart, LineSeriesOption } from 'echarts/charts';
-// import type { EChartsCoreOption } from 'echarts/core';
-import { merge } from 'lodash-es'
-import ECharts from '../ECharts';
+import { merge } from 'lodash-es';
+import ECharts, { type ECOption, type RendererType, type ThemeType } from '../ECharts';
 import { baseOption } from '../utils';
 
-function getSeries(dataSource: any[]): LineSeriesOption[] {
-  return dataSource.map((item) => {
+function getSeries(series: LineSeriesOption[]): LineSeriesOption[] {
+  return series.map((item) => {
     const { name, data, type = 'line', areaStyle, ...rest } = item;
     const serie: LineSeriesOption = {
-      name,
       data,
+      name,
       type,
       symbol: 'none',
       lineStyle: {
@@ -38,39 +37,40 @@ function getSeries(dataSource: any[]): LineSeriesOption[] {
   });
 }
 
-type LineEChartProps = {
-  dataSource: any[],
-  xAxisData: string[],
-  theme?: 'light' | 'dark',
-  components?: any[],
-  loading?: boolean,
+interface LineEChartProps  extends LineSeriesOption {
+  series?: LineSeriesOption[],
+  xAxisData?: string[],
+  components?: any[];
+  theme?: ThemeType;
+  renderer?: RendererType
+  shallow?: boolean; // 浅拷贝
 };
 
 const LineEChart: React.FC<LineEChartProps> = (props) => {
   const {
+    shallow,
+    renderer,
     components = [],
-    dataSource,
-    xAxisData,
+    series,
     ...rest
   } = props;
 
-  const options = useMemo(() => {
-    const { length } = dataSource;
-    const series = Array.isArray(dataSource) ?  getSeries(dataSource) : [];
-    return baseOption({ length, series, xAxisData, ...rest });
-  }, [dataSource, xAxisData, rest]);
-  console.log('line', options);
+  const option: ECOption = useMemo(() => {
+    const option = Object.assign({
+      series: Array.isArray(series) ?  getSeries(series) : [],
+    }, rest)
+    return baseOption(option, shallow);
+  }, [series, rest, shallow]);
 
   return (
     <ECharts
-      options={options}
+      renderer={renderer}
+      option={option}
       components={[
         ...components,
         LineChart,
         LegendComponent,
       ]}
-      {...rest}
-      // renderer='svg'
     />
   );
 }

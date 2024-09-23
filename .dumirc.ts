@@ -107,142 +107,146 @@ const footerLinks = [
 ];
 
 const themeConfig = defineThemeConfig({
-    name,
-    title: {
-      'zh-CN': name,
-      'en-US': name,
-      'ru': name,
+  name,
+  title: {
+    'zh-CN': name,
+    'en-US': name,
+    ru: name,
+  },
+  description: {
+    'zh-CN': '基于 Ant Design 5.0 的中台组件库',
+    'en-US': 'Middle Platform component library based on Ant Design 5.0',
+    ru: 'Базовая библиотека компонентов на базе Ant Design 5.0',
+  },
+  lastUpdated: true,
+  bannerConfig: {
+    showBanner: true,
+  },
+  /**
+   * 多语言
+   * @doc https://d.umijs.org/config#locales
+   */
+  locales: [
+    { id: 'zh-CN', name: '中文', suffix: '' },
+    { id: 'en-US', name: 'English', suffix: '-en' },
+    { id: 'ru', name: 'Русский язык', suffix: '-ru' },
+  ],
+  localesEnhance: [
+    { id: 'zh-CN', switchPrefix: '中文' },
+    { id: 'en-US', switchPrefix: 'EN' },
+  ],
+  metas: [
+    { name: 'keywords', content: 'sop-antd' },
+    { name: 'description', content: 'React, sop-antd' },
+  ],
+  theme: {
+    token: {
+      colorPrimary: '#00b96b',
     },
-    description: {
-      'zh-CN': '基于 Ant Design 5.0 的中台组件库',
-      'en-US': 'Middle Platform component library based on Ant Design 5.0',
-      'ru': 'Базовая библиотека компонентов на базе Ant Design 5.0',
-    },
-    lastUpdated: true,
-    bannerConfig: {
-      showBanner: true,
-    },
-    /**
-     * 多语言
-     * @doc https://d.umijs.org/config#locales
-     */
-    locales: [
-      { id: 'zh-CN', name: '中文', suffix: '' },
-      { id: 'en-US', name: 'English', suffix: '-en' },
-      { id: 'ru', name: 'Русский язык', suffix: '-ru' },
-    ],
-    localesEnhance: [
-      { id: 'zh-CN', switchPrefix: '中文' },
-      { id: 'en-US', switchPrefix: 'EN' },
-    ],
-    metas: [
-      { name: 'keywords', content: 'sop-antd' },
-      { name: 'description', content: 'React, sop-antd' },
-    ],
-    theme: {
-      token: {
-        colorPrimary: '#00b96b',
-      },
-    },
-    antdTheme: {
-      // 当为 true 时，全部都以分组形式展示
-      // sidebarGroupModePath: [
-      // 匹配以 /config 开头的路由
-      //   '/config'
-      // ]
-    },
-    /**
-     * dumi 暂只支持两级侧边栏
-     * 左侧导航栏分组
-     */
+  },
+  antdTheme: {
+    // 当为 true 时，全部都以分组形式展示
     // sidebarGroupModePath: [
     // 匹配以 /config 开头的路由
-    //   '/config',
-    // ],
-    // sidebar: { '/nodejs': [] },
-    resolve: {
-      atomDirs: [
-        { type: 'component', dir: 'src' }, // 默认值
-        // 追加一个组件资产的解析目录
-        // { type: 'basic-chart', dir: 'src/ECharts', subType: 'chart' },
-      ]
-    },
-    /**
+    //   '/config'
+    // ]
+  },
+  /**
+   * dumi 暂只支持两级侧边栏
+   * 左侧导航栏分组
+   */
+  // sidebarGroupModePath: [
+  // 匹配以 /config 开头的路由
+  //   '/config',
+  // ],
+  // sidebar: { '/nodejs': [] },
+  resolve: {
+    atomDirs: [
+      { type: 'component', dir: 'src' }, // 默认值
+      // 追加一个组件资产的解析目录
+      // { type: 'basic-chart', dir: 'src/ECharts', subType: 'chart' },
+    ],
+  },
+  /**
      * nav: {
       'zh-CN': [{ title: '指南', link: '/guide/introduce' }],
       'en-US': [{ title: 'guide', link: '/guide/introduce-en'}],
     },
      */
-    nav: [
-      {
-        title: 'DevOps',
-        link: '/devops'
-      },
-      {
-        title: 'Datav 可视化',
-        link: '/datav'
-      },
-      {
-        title: 'B端设计系统',
-        link: '/tob'
-        // link: '/components'
-      },
-      {
-        title: '企业数字化转型',
-        link: '/biz'
-      },
-    ],
-    actions: [
-      {
-        text: '开始使用',
-        link:  '/devops',
-        type: 'primary',
-      },
-      {
-        text: '查看组件',
-        link:  '/components',
-      }
-    ],
-    features: [
-      {
-        title: '开箱即用',
-        details: '基于 Ant Design 5.0 的封装，无缝对接 antd 项目',
-        emoji: '👏🏻',
-        link: '/link'
-      },
-      {
-        title: 'B端组件',
-        details: '提炼自企业级中后台产品的交互语言和视觉风格',
-      },
-      {
-        title: '组件灵活复用',
-        details: '接入简单，安装即使用，全面融入 Ant Design 5.0 风格',
-      }
-    ],
-    showLineNum: true,
-    rtl: false,
-    github: 'https://github.com/lulongwen/antd-cli',
-    docVersions: {
-      '1.0.0': 'http://www.lulongwen.com'
+  nav: [
+    {
+      title: 'React',
+      link: '/react',
     },
-    loading: {
-      skeleton: ['/guide', '/config', '/demo'],
+    {
+      title: 'DevOps',
+      link: '/devops',
     },
-    socialLinks: {
-      github: 'https://github.com/lulongwen',
-      // twitter: 'https://xxxx',
-      // gitlab: 'https://xxxx',
-      // facebook: 'https://xxxx',
-      // zhihu: 'https://xxxx',
-      yuque: 'https://www.yuque.com/lulongwen',
+    {
+      title: 'DataV',
+      link: '/datav',
     },
-    footerLinks,
-    footer: 'Antd技术栈，Copyright ©2013-2023，豫ICP备2023017175-1号',
+    {
+      title: 'B端设计系统',
+      link: '/tob',
+      // link: '/components'
+    },
+    {
+      title: '企业数字化转型',
+      link: '/biz',
+    },
+  ],
+  actions: [
+    {
+      text: '开始使用',
+      link: '/devops',
+      type: 'primary',
+    },
+    {
+      text: '查看组件',
+      link: '/components',
+    },
+  ],
+  features: [
+    {
+      title: '开箱即用',
+      details: '基于 Ant Design 5.0 的封装，无缝对接 antd 项目',
+      emoji: '👏🏻',
+      link: '/link',
+    },
+    {
+      title: 'B端组件',
+      details: '提炼自企业级中后台产品的交互语言和视觉风格',
+    },
+    {
+      title: '组件灵活复用',
+      details: '接入简单，安装即使用，全面融入 Ant Design 5.0 风格',
+    },
+  ],
+  showLineNum: true,
+  rtl: false,
+  github: 'https://github.com/lulongwen/antd-cli',
+  docVersions: {
+    '1.0.0': 'http://www.lulongwen.com',
+  },
+  loading: {
+    skeleton: ['/guide', '/config', '/demo'],
+  },
+  socialLinks: {
+    github: 'https://github.com/lulongwen',
+    // twitter: 'https://xxxx',
+    // gitlab: 'https://xxxx',
+    // facebook: 'https://xxxx',
+    // zhihu: 'https://xxxx',
+    yuque: 'https://www.yuque.com/lulongwen',
+  },
+  footerLinks,
+  footer: 'Antd技术栈，Copyright ©2013-2023，豫ICP备2023017175-1号',
 });
 
 export default defineConfig({
-  // base: '/', // 文档起始路由
-  publicPath: `/${outputPath}/`,
+  // base: '/', // base: '/文档起始路由/' 文档项目独立时, 通常 base 和 publicPath 配置项相同
+  publicPath: `/${outputPath}/`, // publicPath: '/静态资源起始路径/',
   outputPath,
   // history: { type: 'hash'},
   exportStatic: {}, // 将所有路由输出为 HTML 目录结构，以免刷新页面时 404
@@ -256,6 +260,9 @@ export default defineConfig({
   sitemap: {
     hostname: 'http://lulongwen.com',
   },
-  // favicons: ['https://gw.alipayobjects.com/zos/rmsportal/rlpTLlbMzTNYuZGGCVYM.png'],
+  favicons: [
+    'https://reactflow.dev/img/favicon.ico',
+    '/favicon.ico'
+  ],
   // extraBabelPresets: ['@emotion/babel-preset-css-prop'],
 });

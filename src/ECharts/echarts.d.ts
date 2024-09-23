@@ -1,5 +1,6 @@
 import type { ComposeOption } from 'echarts/core';
 
+// 日期数组
 type xAxisDataProps = Array<number | string>
 
 // type RendererType = RendererEnum[keyof RendererEnum];
@@ -55,32 +56,6 @@ import type {
   TooltipComponentOption,
   VisualMapComponentOption
 } from 'echarts/components';
-
-export type ECDataOption = {  
-  dataSource: 
-    BarSeriesOption['data'] |
-    BoxplotSeriesOption['data'] |
-    CandlestickSeriesOption['data'] |
-    CustomSeriesOption['data'] |
-    EffectScatterSeriesOption['data'] |
-    FunnelSeriesOption['data'] |
-    GaugeSeriesOption['data'] |
-    GraphSeriesOption['data'] |
-    HeatmapSeriesOption['data'] |
-    LineSeriesOption['data'] |
-    MapSeriesOption['data'] |
-    ParallelSeriesOption['data'] |
-    PictorialBarSeriesOption['data'] |
-    PieSeriesOption['data'] |
-    RadarSeriesOption['data'] |
-    SankeySeriesOption['data'] |
-    ScatterSeriesOption['data'] |
-    SunburstSeriesOption['data'] |
-    ThemeRiverSeriesOption['data'] |
-    TreeSeriesOption['data'] |
-    TreemapSeriesOption['data'];  
-  xAxisData: xAxisDataProps; // 日期数组
-}  
 
 // 通过 ComposeOption 来组合出：一个只有必须组件和图表的 Option 类型
 export type ECOption = ComposeOption<

@@ -3,7 +3,6 @@
  * Date: 2021-10-24 10:09
  * Description:
  */
-import React from 'react';
 import {
   DataZoomComponent,
   DataZoomComponentOption,

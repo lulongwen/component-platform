@@ -27,7 +27,7 @@ export const colorBox = [
   '#671010'
 ];
 
-// 生成热力图 options
+// 生成热力图 option
 export function getOption({ data, buckets, xAxisData, unit }: any) {
   const _data = data || [];
   const source = _data.map((d: number[]) => d[2]);

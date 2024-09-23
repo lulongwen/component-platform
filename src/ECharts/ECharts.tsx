@@ -25,30 +25,39 @@ import { isEmpty } from 'lodash-es';
 import { useResizeDetector } from 'react-resize-detector';
 
 // 组件类型的定义后缀都为 ComponentOption
-import type { ECOption, RendererType, ThemeProps } from './echarts.d';
+import type { ECOption } from './echarts.d';
+
+export { ECOption }
 
 // const dpr = window.devicePixelRatio; // 设备分辨率
 
-export enum ThemeEnum {  
-  Light = 'light',  
-  Dark = 'dark'  
+export enum ThemeEnum {
+  Light = 'light',
+  Dark = 'dark'
 }
 
-export enum LocaleEnum {  
-  Zh = 'ZH',  
-  En = 'EN'  
+export type ThemeType = typeof ThemeEnum[keyof typeof ThemeEnum];
+
+export enum LocaleEnum {
+  Zh = 'ZH',
+  En = 'EN'
 }
 
-export enum RendererEnum {  
-  Canvas = 'canvas',  
-  Svg = 'svg'  
+export type LocaleType = typeof LocaleEnum[keyof typeof LocaleEnum];
+
+export enum RendererEnum {
+  Canvas = 'canvas',
+  Svg = 'svg'
 }
+
+// 使用类型映射来从枚举的值中提取类型
+export type RendererType = typeof RendererEnum[keyof typeof RendererEnum];
 
 interface IEChartProps {
-  options: ECOption;
+  option: ECOption;
   components?: any[];
   renderer?: RendererType;
-  theme?: ThemeProps;
+  theme?: ThemeType;
   notMerge?: boolean;
   group?: string;
   locale?: string;
@@ -57,13 +66,13 @@ interface IEChartProps {
   height?: number;
   style?: React.CSSProperties;
   className?: string;
-  onRendered?: (chart: any) => void;
+  onRendered?: (chart: echarts.EChartsType) => void;
   // onClick: func,
 }
 
 function ECharts(props: IEChartProps, ref: React.Ref<any>) {
   const {
-    options,
+    option,
     components,
     height = 240,
     renderer = RendererEnum.Canvas,
@@ -72,10 +81,10 @@ function ECharts(props: IEChartProps, ref: React.Ref<any>) {
     className,
     style,
   } = props;
-  
+
   // Echarts DOM
   const targetRef = useRef<HTMLDivElement>(null);
-  
+
   // Echarts 实例
   const echartsInstance = useRef<echarts.EChartsType | null>(null);
 
@@ -114,12 +123,12 @@ function ECharts(props: IEChartProps, ref: React.Ref<any>) {
   }, []);
 
   // 修改以下属性，需要 dispose() 销毁，然后新建 echarts实例
-  useEffect(update, [options, theme, components]);
+  useEffect(update, [option, theme, components]);
 
   useImperativeHandle(ref, () => echartsInstance)
 
   function update() {
-    if (isEmpty(options)) {
+    if (isEmpty(option)) {
       return
     }
     if (!targetRef.current) {
@@ -129,7 +138,7 @@ function ECharts(props: IEChartProps, ref: React.Ref<any>) {
     echartsInstance.current = singletonInstance(targetRef.current);
     // 每次绘图之前，先清除画布
     echartsInstance.current.clear();
-    echartsInstance.current.setOption(options, {
+    echartsInstance.current.setOption(option, {
       notMerge: false, // default false
       lazyUpdate: true,
     });
@@ -150,7 +159,7 @@ function ECharts(props: IEChartProps, ref: React.Ref<any>) {
     });
   }
 
-  if (isEmpty(options)) {
+  if (isEmpty(option)) {
     return null;
   }
   // console.log('width', { width, height });

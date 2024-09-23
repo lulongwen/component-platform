@@ -7,7 +7,7 @@ import { merge } from 'lodash-es';
 import { colors } from './colors';
 
 export const grid = {
-  top: 16,
+  top: 24,
   right: 16,
   bottom: 32,
   left: 32,
@@ -24,13 +24,14 @@ export const yAxis = {
   },
 };
 
-export function baseOption({ color, xAxisData, length, theme, ...rest }: any) {
-  const options = {
-    color: color || colors,
-    grid: {
-      ...grid,
-      top: length > 1 ? 32 : 24,
-    },
+export function baseOption(props: any, shallow = false) {
+  const { xAxisData, theme, ...rest } = props;
+  const isDark = theme === 'dark';
+  const textColor = isDark ? '#fff' : '#333';
+
+  const option = {
+    color: colors,
+    grid: Object.assign({}, grid),
     xAxis: {
       type: 'category',
       // 坐标轴留白 false 就是贴边没有边距，false 柱状图溢出
@@ -41,7 +42,7 @@ export function baseOption({ color, xAxisData, length, theme, ...rest }: any) {
         alignWithLabel: true, // 坐标轴刻度与标签对齐
       },
       splitLine: { show: false },
-      axisLine: { lineStyle: { color: 'rgba(0,0,0,0)' } },
+      axisLine: { lineStyle: { color: 'rgba(0,0,0,0.1)' } },
       axisLabel: { color: '#9da5b2', fontSize: 11, overflow: 'break' },
     },
     yAxis: {
@@ -74,31 +75,31 @@ export function baseOption({ color, xAxisData, length, theme, ...rest }: any) {
     },
     legend: {
       type: 'scroll',
-      show: length > 1,
-      // icon: 'rect',
-      // // data: legendData,
-      // top: -4,
+      // top: -2,
       // itemWidth: 12,
       // itemHeight: 4,
       textStyle: {
-        color: theme === 'dark' ? '#fff' : '#333',
+        color: textColor,
         fontSize: 12,
       },
       pageTextStyle: {
-        color: theme === 'dark' ? '#fff' : '#333',
+        color: textColor,
       }
     },
   };
 
-  return merge(options, rest);
+  return shallow
+    ? Object.assign({}, option, rest)
+    : merge(option, rest);
 }
 
-export function getMarkArea(length, itemEvents) {
+export function getMarkArea(length: number, itemEvents: any[]) {
   const startP = length > 1 ? 24 : 16;
   const diff = 16;
 
-  const markAreas = (itemEvents || []).map((event, index) => {
+  const markAreas = itemEvents.map((event, index: number) => {
     const { name, type, startTime, endTime, message } = event;
+
     return [
       {
         name: `${name}:${type}`,

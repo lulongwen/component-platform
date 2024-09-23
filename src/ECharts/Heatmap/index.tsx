@@ -18,13 +18,13 @@ interface IProps {
 }
 
 const Heatmap: React.FC<IProps> = (props) => {
-  const { 
-    value, 
-    unit = 'ms', 
-    xAxisData, 
+  const {
+    value,
+    unit = 'ms',
+    xAxisData,
     height
   } = props;
-  const [options, setOptions] = useState({ values: [], buckets: [] });
+  const [option, setOptions] = useState({ values: [], buckets: [] });
 
   useEffect(update, [value, xAxisData]);
 
@@ -32,14 +32,14 @@ const Heatmap: React.FC<IProps> = (props) => {
     const { nodes, buckets } = getHeatmapSource(value);
     if(!buckets || !nodes) return;
 
-    const options = getOption({data: nodes, buckets, unit, xAxisData});
-    setOptions(options);
+    const _option = getOption({data: nodes, buckets, unit, xAxisData});
+    setOptions(_option);
   }
 
   return (
     <ECharts
       height={height}
-      options={options}
+      option={option}
       components={[
         VisualMapComponent,
         HeatmapChart

@@ -58,6 +58,12 @@ npx create-dumi
 
 # start
 npm run dev
+
+# site 模版
+npm run build
+
+# react 模版
+npm run docs:build
 ```
 
 
