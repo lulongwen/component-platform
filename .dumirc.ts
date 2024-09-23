@@ -248,7 +248,7 @@ const themeConfig = defineThemeConfig({
 });
 
 export default defineConfig({
-  // base: '/文档起始路由/' 文档项目独立时, 通常 base 和 publicPath 配置项相同
+  // base: '/文档起始路由/' 文档项目非根目录部署, base 和 publicPath 配置项相同
   base: publicPath,
   outputPath: repo,
   publicPath, // publicPath: '/静态资源起始路径/',
@@ -267,6 +267,9 @@ export default defineConfig({
   sitemap: {
     hostname: 'http://lulongwen.com',
   },
-  favicons: ['https://reactflow.dev/img/favicon.ico', '/favicon.ico'],
+  favicons: [
+    'https://reactflow.dev/img/favicon.ico',
+    // '/favicon.ico'
+  ],
   // extraBabelPresets: ['@emotion/babel-preset-css-prop'],
 });
