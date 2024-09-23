@@ -250,7 +250,7 @@ const themeConfig = defineThemeConfig({
 export default defineConfig({
   // base: '/文档起始路由/' 文档项目独立时, 通常 base 和 publicPath 配置项相同
   base: publicPath,
-  outputPath: 'docs-dist', // repo,
+  outputPath: repo,
   publicPath, // publicPath: '/静态资源起始路径/',
   cssPublicPath: publicPath,
   // history: { type: 'hash'},

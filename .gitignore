@@ -26,6 +26,7 @@ jscoverage_lib
 /.umirc.local.ts
 .mfsu
 .dumi/tmp
+.dumi/tmp-production
 
 # production
 dist/
