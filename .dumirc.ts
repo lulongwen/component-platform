@@ -2,7 +2,10 @@ import { defineConfig } from 'dumi';
 import { defineThemeConfig } from 'dumi-theme-antd/dist/defineThemeConfig';
 
 const name = 'sop-antd';
-const outputPath = 'docs-dist';
+const repo = 'component-platform'; // github repo
+
+const isEnvProduction = process.env.NODE_ENV === 'production';
+const publicPath = isEnvProduction ? `/${repo}/` : '/';
 
 const footerLinks = [
   {
@@ -245,13 +248,17 @@ const themeConfig = defineThemeConfig({
 });
 
 export default defineConfig({
-  // base: '/', // base: '/文档起始路由/' 文档项目独立时, 通常 base 和 publicPath 配置项相同
-  publicPath: `/${outputPath}/`, // publicPath: '/静态资源起始路径/',
-  outputPath,
+  // base: '/文档起始路由/' 文档项目独立时, 通常 base 和 publicPath 配置项相同
+  base: publicPath,
+  outputPath: 'docs-dist', // repo,
+  publicPath, // publicPath: '/静态资源起始路径/',
+  cssPublicPath: publicPath,
   // history: { type: 'hash'},
   exportStatic: {}, // 将所有路由输出为 HTML 目录结构，以免刷新页面时 404
   themeConfig,
-
+  mfsu: false,
+  ssr: false,
+  hash: false, // 文件 hash
   analytics: {
     // 百度统计的 key
     baidu: 'c1279a8c55872aac7aa5d4bd6d02af64',
@@ -260,9 +267,6 @@ export default defineConfig({
   sitemap: {
     hostname: 'http://lulongwen.com',
   },
-  favicons: [
-    'https://reactflow.dev/img/favicon.ico',
-    '/favicon.ico'
-  ],
+  favicons: ['https://reactflow.dev/img/favicon.ico', '/favicon.ico'],
   // extraBabelPresets: ['@emotion/babel-preset-css-prop'],
 });

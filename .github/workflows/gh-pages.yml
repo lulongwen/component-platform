@@ -1,0 +1,46 @@
+# 项目名
+name: react-component-platform
+
+# 只有在main分支发生push事件时触发
+on:
+  push:
+    branches:
+      - main # default branch
+
+# 工作流
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # 运行环境
+
+    steps:
+      # 拉代码
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          # 如果配置 themeConfig.lastUpdated 为 false，则不需要添加该参数以加快检出速度
+          fetch-depth: 0
+
+      # 下载node，我这里指定了15.x，这个版本可随意，高于dumi规定的node版本即可
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15.x
+
+      # Install
+      name: Install dependencies
+        run: npm install
+
+      # 打包代码
+      - name: Build with dumi
+        # 文档编译命令，如果是 react 模板需要修改为 npm run docs:build
+        run: npm run build
+
+      # 部署到github
+      - name: Deploy to Github
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # 文档目录，如果是 react 模板需要修改为 docs-dist
+          publish_dir: ./docs-dist
+          # branch: main # 打包的内容放到 main 分支下
+          # folder: dist # 你打包后存放的文件
